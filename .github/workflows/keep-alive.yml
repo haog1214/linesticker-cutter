@@ -1,0 +1,15 @@
+name: Keep Render Awake
+
+on:
+  schedule:
+    - cron: '*/10 * * * *'
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping line.haton.com.tw
+        run: |
+          status=$(curl -s -o /dev/null -w "%{http_code}" https://line.haton.com.tw/)
+          echo "HTTP status: $status"
