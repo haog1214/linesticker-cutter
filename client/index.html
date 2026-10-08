@@ -3,6 +3,16 @@
 
   <head>
     <meta charset="UTF-8" />
+    <script>
+      (function () {
+        if (/Line\//i.test(navigator.userAgent)) {
+          var url = location.href;
+          if (url.indexOf('openExternalBrowser') === -1) {
+            location.replace(url + (url.indexOf('?') === -1 ? '?' : '&') + 'openExternalBrowser=1');
+          }
+        }
+      })();
+    </script>
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1" />
@@ -13,12 +23,15 @@
   </head>
 
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <!-- React 啟動後會取代這段；伺服器喚醒或網路慢時先顯示 -->
+      <div style="min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;font-family:-apple-system,BlinkMacSystemFont,'Noto Sans TC',sans-serif;color:#64748b;text-align:center;padding:16px">
+        <div style="font-size:18px;font-weight:600;color:#0ea5e9">LINE 貼圖裁切去背神器</div>
+        <div style="font-size:14px">載入中，請稍候…</div>
+        <div style="font-size:12px">若超過 30 秒仍未出現，請重新整理頁面</div>
+      </div>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
-    <script
-      defer
-      src="%VITE_ANALYTICS_ENDPOINT%/umami"
-      data-website-id="%VITE_ANALYTICS_WEBSITE_ID%"></script>
   </body>
 
 </html>
